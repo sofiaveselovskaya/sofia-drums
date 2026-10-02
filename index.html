@@ -567,7 +567,20 @@ $("link-vk").href = `https://vk.me/${VK_USERNAME}`;
 (function () {
   const track = $("hs-track"), video = $("hero-video"), btn = $("sound-btn");
   const dots = [...document.querySelectorAll(".hs-dots button")];
-  const go = (n) => track.scrollTo({ left: n * track.clientWidth, behavior: "smooth" });
+  // мягкое перелистывание: медленный старт и плавная остановка
+  const go = (n, ms = 1400) => {
+    const from = track.scrollLeft, to = n * track.clientWidth;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { track.scrollLeft = to; return; }
+    track.style.scrollSnapType = "none";
+    const t0 = performance.now();
+    const ease = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / ms);
+      track.scrollLeft = from + (to - from) * ease(k);
+      if (k < 1) requestAnimationFrame(step); else track.style.scrollSnapType = "";
+    };
+    requestAnimationFrame(step);
+  };
   dots.forEach((d, n) => d.addEventListener("click", () => go(n)));
   track.addEventListener("scroll", () => {
     const n = Math.round(track.scrollLeft / track.clientWidth);
