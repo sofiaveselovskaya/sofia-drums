@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Уроки игры на барабанах в Москве с Софией Веселовской: с нуля, для удовольствия, индивидуально. м. Савеловская / Белорусская.">
+<style>[hidden]{display:none!important}</style>
+<title>София Веселовская · барабаны</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single column; one bold moment — the dark "stage" block with a photo carousel and poster-style lineup */
+:root {
+  --bg: #ECEEF1;          /* coated drumhead, cool white */
+  --surface: #F8F9FA;
+  --fg: #151821;
+  --muted: #5A6070;
+  --line: #D3D7DE;
+  --accent: #2B3FB5;      /* blue sparkle wrap */
+  --accent-fg: #FFFFFF;
+  --brass: #9A6C1E;       /* cymbal bronze */
+  --brass-soft: #E9DCC2;
+  --stage-hi: #D6A64E;     /* bronze on the inverted stage block */
+
+  --display: "Dela Gothic One", "Arial Black", Impact, sans-serif;
+  --body: "Golos Text", "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3rem;
+  --step-2: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
+  --step-3: clamp(2.4rem, 1.4rem + 4.4vw, 4.6rem);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1120; --surface: #161A2C; --fg: #E9EBF2; --muted: #9AA0B4; --line: #2A3048;
+    --accent: #8C9CFF; --accent-fg: #0E1120; --brass: #D6A64E; --brass-soft: #3A3020; --stage-hi: #8A5F14;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1120; --surface: #161A2C; --fg: #E9EBF2; --muted: #9AA0B4; --line: #2A3048;
+  --accent: #8C9CFF; --accent-fg: #0E1120; --brass: #D6A64E; --brass-soft: #3A3020; --stage-hi: #8A5F14;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
+  margin: 0;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+h2 { font-family: var(--display); font-weight: 400; font-size: var(--step-2); line-height: 1.15; letter-spacing: 0.01em; }
+h3 { font-size: var(--step-1); font-weight: 600; line-height: 1.3; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+img { max-width: 100%; display: block; }
+
+.eyebrow {
+  font-family: var(--mono); font-size: var(--step--1); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--brass);
+}
+
+/* Header + menu */
+.topbar { position: relative; z-index: 10; }
+.topbar > .wrap { padding: 0; }
+.float-right { right: max(16px, calc((100vw - 1080px) / 2 + 20px)); }
+.logo { font-family: var(--display); font-size: 1.05rem; text-decoration: none; letter-spacing: 0.02em; }
+.burger {
+  position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); z-index: 30;
+  background: color-mix(in srgb, var(--surface) 88%, transparent) !important;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 6px 18px -8px rgb(0 0 0 / 0.35);
+  width: 44px; height: 44px; display: grid; place-content: center; gap: 5px;
+  background: none; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; padding: 0;
+}
+.burger span { display: block; width: 20px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform .2s, opacity .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu {
+  position: fixed; top: calc(env(safe-area-inset-top, 0px) + 64px); z-index: 30;
+  width: min(300px, calc(100vw - 40px));
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.35);
+  display: grid; padding: 8px 20px; text-align: right;
+}
+.menu[hidden] { display: none; }
+.menu a { text-decoration: none; font-size: var(--step-1); font-weight: 500; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.menu a:last-child { border-bottom: 0; }
+.menu a:hover { color: var(--accent); }
+.menu a.menu-cta { color: var(--accent); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 600 var(--step-0)/1 var(--body); text-decoration: none; cursor: pointer;
+  padding: 15px 24px; border-radius: 999px; border: 2px solid var(--accent);
+  background: var(--accent); color: var(--accent-fg);
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--fg); }
+
+/* Hero */
+.hero { padding-block: clamp(64px, 7vw, 96px) clamp(48px, 7vw, 96px); }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero-text { min-width: 0; display: grid; gap: 22px; }
+.hero h1 { font-family: var(--display); font-weight: 400; font-size: var(--step-3); line-height: 1.02; letter-spacing: 0.005em; }
+.hero h1 span { display: block; color: var(--accent); }
+.lead-plate {
+  background: var(--accent); color: var(--accent-fg);
+  font-family: var(--display); line-height: 1.08;
+  padding: 12px 16px 14px; border-radius: 12px; width: 100%; max-width: 360px; min-width: 0;
+  container-type: inline-size; overflow: hidden;
+}
+.lead-plate .fit { display: block; white-space: nowrap; text-align: center; }
+.lead-plate .fit:first-child { font-size: 11.2cqi; }
+.lead-plate .fit:last-child { font-size: 7.6cqi; }
+.lead { font-size: var(--step-1); line-height: 1.45; max-width: 32ch; }
+.lead b { font-weight: 600; }
+.lead-sub { color: var(--muted); max-width: 44ch; }
+.hero-stats { display: flex; flex-wrap: wrap; align-items: stretch; gap: 14px; }
+.stat {
+  display: flex; align-items: center; gap: 14px; padding: 14px 20px 14px 16px;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--surface);
+}
+.stat-num { font-family: var(--display); font-size: 2.6rem; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat-text { font-size: var(--step--1); line-height: 1.35; }
+.stat-text b { display: block; font-size: var(--step-0); }
+.stat-text span { color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-photo { width: 100%; aspect-ratio: 3 / 4; border-radius: var(--radius); }
+.hero-slider { position: relative; overflow: hidden; background: var(--surface); }
+.hs-track {
+  display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.hs-track::-webkit-scrollbar { display: none; }
+.hs-slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; position: relative; }
+.hs-slide img, .hs-slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hs-chip, .sound-btn {
+  position: absolute; top: 12px; left: 12px; z-index: 2; border: 0; cursor: pointer; color: #fff;
+  background: rgb(0 0 0 / 0.4); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.hs-chip { padding: 8px 14px; border-radius: 999px; font: 600 0.85rem/1 var(--body); display: inline-flex; gap: 6px; align-items: center; }
+.sound-btn { width: 38px; height: 38px; border-radius: 999px; display: grid; place-items: center; opacity: 0.8; }
+.sound-btn:hover { opacity: 1; }
+.sound-btn svg { width: 20px; height: 20px; }
+.sound-btn .sound-on, .sound-btn.on .sound-off { display: none; }
+.sound-btn.on .sound-on { display: inline; }
+.hs-dots { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; gap: 8px; }
+.hs-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: rgb(255 255 255 / 0.5); cursor: pointer; }
+.hs-dots button[aria-current="true"] { background: #fff; width: 22px; }
+
+/* Sections */
+section.block { padding-block: clamp(56px, 8vw, 104px); border-top: 1px solid var(--line); }
+.section-head { display: grid; gap: 10px; margin-bottom: clamp(28px, 4vw, 44px); max-width: 640px; }
+
+/* Philosophy (the soft heart of the page) */
+.vibe { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.vibe > * { min-width: 0; }
+.vibe-photo { width: 100%; aspect-ratio: 23 / 25; object-fit: cover; border-radius: var(--radius); height: auto; }
+.vibe-text { display: grid; gap: 22px; }
+.manifesto { font-family: var(--display); font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.7rem); line-height: 1.15; }
+.manifesto em { font-style: normal; color: var(--brass); }
+.principles { list-style: none; padding: 0; margin: 0; display: grid; }
+.principles li { padding-block: 18px; border-top: 1px solid var(--line); display: grid; gap: 6px; }
+.principles p { color: var(--muted); }
+
+.goals-wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 48px; margin-top: clamp(40px, 5vw, 64px); }
+.goals-wrap > div { min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.chip { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: var(--step--1); background: var(--surface); }
+.chip.style { font-family: var(--mono); font-size: 0.82rem; }
+
+/* About */
+.about { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.about-text { display: grid; gap: 18px; min-width: 0; max-width: 62ch; }
+.about-photo { width: 100%; aspect-ratio: 720 / 1279; object-fit: cover; border-radius: var(--radius); height: auto; }
+.edu { list-style: none; padding: 0; margin: 8px 0 0; display: grid; border-top: 1px solid var(--line); }
+.edu li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.edu li > span:first-child { font-family: var(--mono); font-size: 0.8rem; color: var(--brass); letter-spacing: 0.04em; text-transform: uppercase; padding-top: 3px; }
+
+/* Stage: dark block, carousel + lineup */
+.stage { background: var(--fg); color: var(--bg); border-top: 0; }
+.stage .eyebrow { color: var(--stage-hi); }
+.stage .muted { color: color-mix(in srgb, var(--bg) 68%, var(--fg)); }
+.carousel-wrap { position: relative; margin-bottom: clamp(44px, 6vw, 72px); }
+.carousel {
+  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; padding-bottom: 4px;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel figure { width: min-content; margin: 0; flex: 0 0 auto; scroll-snap-align: start; display: grid; gap: 8px; }
+.carousel img { height: clamp(380px, 60vh, 560px); width: auto; max-width: none; border-radius: 10px; }
+.carousel figcaption { font-family: var(--mono); font-size: 0.8rem; line-height: 1.4; letter-spacing: 0.02em; color: color-mix(in srgb, var(--bg) 68%, var(--fg)); }
+.car-controls { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+.car-btn {
+  width: 46px; height: 46px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--bg) 35%, var(--fg)); background: transparent;
+  color: var(--bg); font-size: 1.2rem; cursor: pointer; display: grid; place-items: center;
+}
+.car-btn:hover { border-color: var(--stage-hi); color: var(--stage-hi); }
+.lineup { display: grid; gap: clamp(30px, 4vw, 44px); }
+.lineup-group { display: grid; gap: 12px; }
+.lineup-group .eyebrow { border-bottom: 1px solid color-mix(in srgb, var(--bg) 25%, var(--fg)); padding-bottom: 10px; }
+.lineup-names { font-family: var(--display); font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2.05rem); line-height: 1.3; text-wrap: pretty; }
+.lineup-names .sep { color: var(--stage-hi); padding-inline: 0.3em; }
+.lineup-names.small { font-size: clamp(1.05rem, 0.85rem + 0.9vw, 1.45rem); }
+
+/* Price & place */
+.terms { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(24px, 4vw, 48px); align-items: start; }
+.price-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(24px, 4vw, 36px); display: grid; gap: 14px;
+}
+.price { font-family: var(--display); font-size: clamp(2.6rem, 2rem + 2.5vw, 3.6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.price small { font-family: var(--body); font-size: var(--step-0); color: var(--muted); font-weight: 500; }
+.terms-list { list-style: none; padding: 0; margin: 0; display: grid; }
+.terms-list li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 16px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.terms-list li:first-child { border-top: 1px solid var(--line); }
+.terms-list li > span:first-child { color: var(--muted); font-size: var(--step--1); padding-top: 2px; }
+
+/* FAQ */
+.faq { display: grid; max-width: 760px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-child { border-top: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; padding-block: 20px; font-weight: 600; font-size: var(--step-1);
+  display: flex; justify-content: space-between; gap: 16px; align-items: center;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--accent); font-size: 1.4rem; transition: transform .2s; flex-shrink: 0; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 22px; color: var(--muted); max-width: 62ch; }
+
+/* Booking */
+.messengers { display: flex; flex-wrap: wrap; gap: 12px; }
+.msgr {
+  display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+  padding: 12px 24px 12px 14px; border-radius: 999px; font-weight: 600;
+  background: var(--surface); color: var(--fg); border: 1px solid var(--line);
+  transition: transform .15s, border-color .15s;
+}
+.msgr img { width: 28px; height: 28px; flex-shrink: 0; }
+.msgr:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+.insta-row { margin-top: 12px; display: flex; }
+.msgr.insta-btn {
+  border: 0; color: #FFFFFF; padding: 15px 26px;
+  background: linear-gradient(100deg, #F2A93B 0%, #E5466A 48%, #9B3FD6 100%);
+}
+.msgr.insta-btn:hover { border: 0; filter: brightness(1.06); }
+.insta { color: var(--muted); }
+.insta a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
+.footnote { flex-basis: 100%; font-size: 0.78rem; color: var(--muted); margin: 0; }
+footer { border-top: 1px solid var(--line); padding-block: 36px 48px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: center; color: var(--muted); font-size: var(--step--1); }
+
+@media (max-width: 860px) {
+  .hero .wrap, .about, .vibe, .terms { grid-template-columns: 1fr; }
+  .goals-wrap { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) { .messengers, .insta-row { display: grid; } .msgr { justify-content: center; } }
+
+/* ===== Phone-first layout ===== */
+.sticky-cta { display: none; }
+@media (max-width: 640px) {
+  .wrap { padding-inline: 16px; }
+  section.block { padding-block: 52px; }
+  .section-head { margin-bottom: 24px; }
+
+  /* hero: photo first, name over it */
+  .hero { padding-block: 0 40px; }
+  .hero .wrap { gap: 22px; padding-inline: 0; }
+  .hero-photo {
+    order: -1; border-radius: 0; aspect-ratio: 3 / 4; max-width: none; margin-bottom: -110px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 94%);
+            mask-image: linear-gradient(to bottom, #000 62%, transparent 94%);
+  }
+  .hero-text { padding-inline: 16px; gap: 16px; position: relative; container-type: inline-size; }
+  .hero h1 { font-size: 12.6cqi; }
+  .lead { font-size: 1.12rem; max-width: none; }
+  .lead-sub { max-width: none; }
+  .lead-plate { max-width: 330px; }
+  .hero-stats { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .stat { padding: 12px 16px; }
+  .stat-num { font-size: 2.2rem; }
+  .actions { display: grid; }
+  .actions .btn { width: 100%; }
+
+  /* teaching: text first, photo after */
+  .vibe-photo { order: 2; aspect-ratio: 4 / 3; object-position: 50% 30%; }
+  .principles li { padding-block: 14px; }
+
+  /* about: full portrait above text */
+  .about { gap: 0; padding-inline: 0; }
+  .about-photo {
+    order: -1; width: 100%; max-width: none; border-radius: 0; margin-bottom: -110px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 96%);
+            mask-image: linear-gradient(to bottom, #000 68%, transparent 96%);
+  }
+  .about-text { position: relative; padding-inline: 16px; }
+  #about { padding-top: 0; }
+
+  .carousel img { height: 420px; }
+  .car-controls { display: none; }
+  .carousel { margin-inline: -16px; padding-inline: 16px; scroll-padding-inline: 16px; }
+
+  .edu li, .terms-list li { grid-template-columns: 1fr; gap: 2px; }
+  .faq summary { font-size: 1.08rem; padding-block: 16px; }
+
+  /* sticky booking button */
+  .sticky-cta {
+    display: block; position: fixed; left: 16px; right: 16px; z-index: 20;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    text-align: center; text-decoration: none; font-weight: 600;
+    padding: 16px; border-radius: 999px;
+    background: var(--accent); color: var(--accent-fg);
+    box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.45);
+  }
+  .sticky-cta[hidden] { display: none; }
+  footer { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="wrap">
+    <button class="burger float-right" type="button" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Открыть меню">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu float-right" id="menu" aria-label="Разделы" hidden>
+      <a href="#vibe">Как я учу</a>
+      <a href="#about">Обо мне</a>
+      <a href="#stage">Сцена</a>
+      <a href="#terms">Стоимость и место</a>
+      <a href="#faq">Частые вопросы</a>
+      <a href="#booking" class="menu-cta">Записаться на урок</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="eyebrow">Уроки игры на барабанах · Москва</p>
+        <h1>София <span>Веселовская</span></h1>
+        <p class="lead-plate" id="plate"><span class="fit">Научу играть</span><span class="fit">на барабанах с нуля</span></p>
+        <p class="lead">Для удовольствия, для души, чтобы выдохнуть после тяжёлого дня и перезагрузиться.</p>
+        <p class="lead-sub">Индивидуальные занятия для детей и взрослых. И для тех, кто уже играет и хочет расти дальше.</p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">8+</span>
+            <span class="stat-text"><b>лет опыта преподавания</b><span>частная практика и частные музыкальные школы</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-text"><b>м. Савеловская / Белорусская</b><span>на базе барабанного магазина «Музимпорт»</span></span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#booking">Записаться на урок</a>
+          <a class="btn ghost" href="#about">Обо мне</a>
+        </div>
+      </div>
+      <div class="hero-photo hero-slider">
+        <div class="hs-track" id="hs-track" aria-label="Фото и видео, листаются вбок">
+          <div class="hs-slide">
+            <img src="img/hero-portrait.webp" alt="София Веселовская" width="900" height="1200">
+          </div>
+          <div class="hs-slide">
+            <video id="hero-video" src="video/hero.mp4" poster="img/video-poster.webp" muted autoplay loop playsinline preload="metadata" aria-label="Видео: София играет на барабанах"></video>
+            <button class="sound-btn" type="button" id="sound-btn" aria-label="Включить звук">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="sound-off" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path class="sound-on" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="hs-dots"><button type="button" aria-label="Фото" aria-current="true"></button><button type="button" aria-label="Видео"></button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="vibe">
+    <div class="wrap">
+      <div class="vibe">
+        <img class="vibe-photo" src="img/kit.webp" alt="София играет на ударной установке" width="920" height="1000" loading="lazy">
+        <div class="vibe-text">
+          <p class="eyebrow">Как я учу</p>
+          <p class="manifesto">Играть на барабанах должно быть <em>в кайф</em></p>
+          <p>Мой главный принцип — занятия на чиле и на расслабоне. Игра должна радовать и приносить удовольствие, поэтому никаких строгих требований и зубрёжки.</p>
+          <ul class="principles">
+            <li><h3>Программа под вас</h3><p>Подбираю индивидуально: учитываю опыт, желания и музыкальные предпочтения. Можно изучать ноты, а можно учиться полностью без них — по слуху и мышечной памяти.</p></li>
+            <li><h3>Не бойтесь, что не получится</h3><p>Мы идём к результату в комфортном темпе, шаг за шагом. И всё получается.</p></li>
+            <li><h3>Руки, ноги, ритм</h3><p>Постановка рук и ног, чувство ритма, координация — всё, чтобы уверенно сыграть любимые песни.</p></li>
+            <li><h3>Сцена — если захочется</h3><p>Подготовлю к отчётным концертам, джемам, студийной записи и игре в группе.</p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="goals-wrap">
+        <div>
+          <h3>С чем приходят</h3>
+          <div class="chips">
+            <span class="chip">Играть для себя</span><span class="chip">Освоить инструмент с нуля</span><span class="chip">Поставить руки</span><span class="chip">Повысить мастерство</span><span class="chip">Подготовиться к музыкальной школе</span><span class="chip">Подготовиться к училищу</span><span class="chip">Подготовиться к конкурсу или экзамену</span>
+          </div>
+        </div>
+        <div>
+          <h3>Стили</h3>
+          <div class="chips">
+            <span class="chip style">rock</span><span class="chip style">pop</span><span class="chip style">funk</span><span class="chip style">punk</span><span class="chip style">disco</span><span class="chip style">jazz</span><span class="chip style">latin</span><span class="chip style">и другие</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap about">
+      <div class="about-text">
+        <p class="eyebrow">Обо мне</p>
+        <h2>Музыка для меня — дело всей жизни</h2>
+        <p style="font-size: var(--step-1); line-height: 1.5">Во время игры я чувствую себя по-настоящему счастливым человеком, и мне очень хочется передать это состояние и любовь к инструменту вам.</p>
+        <p>Я профессиональный музыкант и преподаватель. Больше восьми лет веду частные уроки и работала в частных музыкальных школах. Являюсь выпускницей легендарного педагога Юрия Леонидовича Бобрушкина. За плечами богатый опыт сессионной и концертной работы и масштабные гастрольные туры.</p>
+        <ul class="edu">
+          <li><span>Институт</span><span>Московский государственный институт культуры (МГИК), класс Машко Д. А.</span></li>
+          <li><span>Училище</span><span>Свердловское музыкальное училище им. П. И. Чайковского, эстрадное отделение, класс Бобрушкина Ю. Л.</span></li>
+        </ul>
+      </div>
+      <img class="about-photo" src="img/about.webp" alt="София Веселовская" width="720" height="1279" loading="lazy">
+    </div>
+  </section>
+
+  <section class="block stage" id="stage">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Сцена</p>
+        <h2>Где и с кем я играла</h2>
+        <p class="muted">Москва, города России и СНГ.</p>
+      </div>
+      <div class="carousel-wrap">
+        <div class="carousel" id="carousel" tabindex="0" aria-label="Фото с концертов, листаются вбок">
+          <figure><img src="img/timpani.webp" alt="За литаврами" width="508" height="1000" loading="lazy"><figcaption>Большой театр, Новая сцена</figcaption></figure>
+          <figure><img src="img/snare.webp" alt="Малый барабан в оркестре" width="541" height="1000" loading="lazy"><figcaption>Большой театр, Новая сцена</figcaption></figure>
+          <figure><img src="img/hall.webp" alt="За установкой в концертном зале" width="562" height="1000" loading="lazy"><figcaption>Московский международный Дом музыки</figcaption></figure>
+          <figure><img src="img/screen.webp" alt="На сцене за ударной установкой" width="508" height="1000" loading="lazy"><figcaption>Дом музыки, Малый зал</figcaption></figure>
+          <figure><img src="img/marimba.webp" alt="Игра на маримбе" width="541" height="1000" loading="lazy"><figcaption>Московская консерватория им. П. И. Чайковского</figcaption></figure>
+          <figure><img src="img/cska.webp" alt="На экране ЦСКА Арены во время концерта" width="955" height="1000" loading="lazy"><figcaption>ЦСКА Арена</figcaption></figure>
+          <figure><img src="img/rehearsal.webp" alt="За установкой на репетиции" width="562" height="1000" loading="lazy"><figcaption>Театр музыкальной комедии</figcaption></figure>
+          <figure><img src="img/pit.webp" alt="В оркестровой яме во время спектакля" width="562" height="1000" loading="lazy"><figcaption>Спектакль в театре</figcaption></figure>
+        </div>
+        <div class="car-controls">
+          <button class="car-btn" type="button" id="car-prev" aria-label="Предыдущее фото">←</button>
+          <button class="car-btn" type="button" id="car-next" aria-label="Следующее фото">→</button>
+        </div>
+      </div>
+      <div class="lineup">
+        <div class="lineup-group">
+          <p class="eyebrow">Артисты и коллективы</p>
+          <p class="lineup-names">Лариса Долина<span class="sep">/</span>Би-2<span class="sep">/</span>Кипелов<span class="sep">/</span>Глеб Самойлов (The Matrixx)<span class="sep">/</span>Юрий Каспарян<span class="sep">/</span>Ильдар Абдразаков<span class="sep">/</span>isaxband<span class="sep">/</span>New Shoes<span class="sep">/</span>квартет Дениса Давыдова<span class="sep">/</span>InterText</p>
+        </div>
+        <div class="lineup-group">
+          <p class="eyebrow">Площадки</p>
+          <p class="lineup-names small">Большой театр<span class="sep">/</span>Крокус Сити Холл<span class="sep">/</span>КЗ «Москва»<span class="sep">/</span>ЦСКА Арена<span class="sep">/</span>Московский международный Дом музыки<span class="sep">/</span>Зарядье<span class="sep">/</span>Большой зал консерватории</p>
+        </div>
+        <div class="lineup-group">
+          <p class="eyebrow">Оркестры</p>
+          <p class="lineup-names small">«Русская филармония»<span class="sep">/</span>МГАСО п/у Павла Когана<span class="sep">/</span>МГСО<span class="sep">/</span>Cinema Orchestra Medley<span class="sep">/</span>«Глобалис»<span class="sep">/</span>биг-бенд Виталия Владимирова<span class="sep">/</span>оркестр Театра музыкальной комедии</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="terms">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Стоимость и место</p>
+        <h2>Всё включено в цену урока</h2>
+      </div>
+      <div class="terms">
+        <div class="price-card">
+          <p class="price">3 000 ₽ <small>/ 60 минут</small></p>
+          <p>Аренда кабинета уже входит в стоимость.</p>
+          <a class="btn" href="#booking">Выбрать время</a>
+        </div>
+        <ul class="terms-list">
+          <li><span>Где</span><span>На базе барабанного магазина «Музимпорт», м. Савеловская / Белорусская. Оборудованный акустический кабинет с профессиональной ударной установкой</span></li>
+          <li><span>Формат</span><span>Индивидуально, один на один</span></li>
+          <li><span>Когда</span><span>Ежедневно, с 11:00 до 21:00</span></li>
+          <li><span>Палочки</span><span>Если у вас ещё нет своих палочек — на время урока я их предоставлю. (Никаких дополнительных трат и хлопот!)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Частые вопросы</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Я никогда не играл(а). Это нормально?</summary><p>Конечно. Начнём с посадки, постановки рук и простых ритмов и пойдём в комфортном для вас темпе. Бояться, что не получится, не нужно — получится.</p></details>
+        <details><summary>Нужно ли знать ноты?</summary><p>Нет. Можно глубоко изучать нотную грамоту, а можно учиться полностью без неё — по слуху и мышечной памяти. Выбираем вместе.</p></details>
+        <details><summary>Нужна ли своя установка?</summary><p>Для урока — нет: занятия проходят в кабинете с профессиональной установкой. Палочки я тоже дам, если своих пока нет.</p></details>
+        <details><summary>Вы занимаетесь с детьми?</summary><p>Да, с детьми и со взрослыми. Готовлю в том числе к поступлению в музыкальную школу и училище.</p></details>
+        <details><summary>Я уже играю. Будет ли мне полезно?</summary><p>Да. Посмотрю технику, разберём, что мешает расти, и подберу задачи под ваши цели: стиль, концерт, запись, конкурс или экзамен.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="booking">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Запись</p>
+        <h2>Записаться на урок</h2>
+        <p style="color: var(--muted)">Напишите мне в удобный мессенджер — подберём время, и я отвечу на все вопросы, если они возникли.</p>
+      </div>
+      <div class="messengers">
+        <a class="msgr tg" id="link-tg" href="#booking" target="_blank" rel="noopener"><img src="img/icon-tg.png" alt="" width="28" height="28"><span>Telegram</span></a>
+        <a class="msgr mx" id="link-max" href="#booking" target="_blank" rel="noopener"><img src="img/icon-max.png" alt="" width="28" height="28"><span>Max</span></a>
+        <a class="msgr vk" id="link-vk" href="#booking" target="_blank" rel="noopener"><img src="img/icon-vk.png" alt="" width="28" height="28"><span>ВКонтакте</span></a>
+      </div>
+      <div class="insta-row">
+        <a class="msgr insta-btn" href="https://instagram.com/sofia_veselovskaya" target="_blank" rel="noopener"><span>Мой Instagram*</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="sticky-cta" id="sticky-cta" href="#booking" hidden>Записаться на урок</a>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 София Веселовская · уроки игры на барабанах</span>
+    <a href="#booking">Записаться на урок</a>
+    <p class="footnote">* Instagram принадлежит компании Meta, которая признана экстремистской организацией и запрещена в России.</p>
+  </div>
+</footer>
+
+<script>
+// ===== Контакты =====
+const TG_USERNAME = "sofiyats";
+const MAX_LINK = "https://max.ru/u/f9LHodD0cOKyhznkbkrtFRcAWE83TUWXpfGsTxagY1CBf3ik7xXfOLFj_t8";
+const VK_USERNAME = "sofiya_veselovskaya";
+const GREETING = "Здравствуйте! Я по поводу обучения на барабанах.";
+
+const $ = (id) => document.getElementById(id);
+
+$("link-tg").href = `https://t.me/${TG_USERNAME}?text=${encodeURIComponent(GREETING)}`;
+$("link-max").href = MAX_LINK;
+$("link-vk").href = `https://vk.me/${VK_USERNAME}`;
+
+// Первый экран: листается фото / видео
+(function () {
+  const track = $("hs-track"), video = $("hero-video"), btn = $("sound-btn");
+  const dots = [...document.querySelectorAll(".hs-dots button")];
+  const go = (n) => track.scrollTo({ left: n * track.clientWidth, behavior: "smooth" });
+  dots.forEach((d, n) => d.addEventListener("click", () => go(n)));
+  track.addEventListener("scroll", () => {
+    const n = Math.round(track.scrollLeft / track.clientWidth);
+    dots.forEach((d, k) => d.setAttribute("aria-current", String(k === n)));
+    if (n === 1) video.play().catch(() => {});
+    else if (!video.muted) video.pause();   // ушли на фото — звук не играет за кадром
+  }, { passive: true });
+  // через 3 секунды сам листает на видео, если человек ещё ничего не трогал
+  let touched = false, soundAsked = false;
+  track.addEventListener("pointerdown", () => { touched = true; }, { once: true });
+  let videoOk = false;
+  video.addEventListener("playing", () => { videoOk = true; }, { once: true });
+  setTimeout(() => {
+    if (!videoOk || touched || track.scrollLeft >= 10) return;
+    go(1);
+    // пробуем со звуком; если браузер не разрешает — остаётся без звука до первого касания
+    video.muted = false;
+    video.play().then(() => {
+      soundAsked = true; btn.classList.add("on"); btn.setAttribute("aria-label", "Выключить звук");
+    }).catch(() => { video.muted = true; video.play().catch(() => {}); });
+  }, 3000);
+  // звук: браузеры разрешают его только после касания, поэтому включаем при первом нажатии где угодно
+  const unlockSound = (e) => {
+    if (soundAsked || e.target.closest("#sound-btn")) return;
+    soundAsked = true;
+    video.muted = false; btn.classList.add("on"); btn.setAttribute("aria-label", "Выключить звук");
+    video.play().catch(() => { video.muted = true; btn.classList.remove("on"); });
+  };
+  document.addEventListener("click", unlockSound);
+  document.addEventListener("touchend", unlockSound);
+  // видео играет только когда первый экран на виду и вкладка открыта
+  let heroOnScreen = true;
+  const onVideoSlide = () => Math.round(track.scrollLeft / track.clientWidth) === 1;
+  const sync = () => {
+    if (heroOnScreen && !document.hidden && onVideoSlide()) video.play().catch(() => {});
+    else video.pause();
+  };
+  new IntersectionObserver(([e]) => { heroOnScreen = e.isIntersecting; sync(); }, { threshold: 0.25 }).observe(track);
+  document.addEventListener("visibilitychange", sync);
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    soundAsked = true;
+    video.muted = !video.muted;
+    btn.classList.toggle("on", !video.muted);
+    btn.setAttribute("aria-label", video.muted ? "Включить звук" : "Выключить звук");
+    video.play().catch(() => {});
+  });
+})();
+
+// Меню
+const burger = $("burger"), menu = $("menu");
+function setMenu(open) {
+  menu.hidden = !open;
+  burger.setAttribute("aria-expanded", String(open));
+  burger.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+}
+burger.addEventListener("click", () => setMenu(menu.hidden));
+menu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+document.addEventListener("click", (e) => { if (!menu.hidden && !e.target.closest(".topbar")) setMenu(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+
+// Плавающая кнопка записи: видна после первого экрана, прячется у блока записи
+const cta = $("sticky-cta");
+const heroEl = document.querySelector(".hero"), bookingEl = $("booking");
+let heroVisible = true, bookingVisible = false;
+const syncCta = () => { cta.hidden = heroVisible || bookingVisible; };
+new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; syncCta(); }).observe(heroEl);
+new IntersectionObserver(([e]) => { bookingVisible = e.isIntersecting; syncCta(); }).observe(bookingEl);
+
+// Карусель
+const car = $("carousel");
+const step = () => (car.querySelector("figure")?.offsetWidth || 300) + 12;
+$("car-prev").addEventListener("click", () => car.scrollBy({ left: -step(), behavior: "smooth" }));
+$("car-next").addEventListener("click", () => car.scrollBy({ left: step(), behavior: "smooth" }));
+</script>
+
+</body>
+</html>
